@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ba28c3c51f7ca4899a414ce9a3af04, type: 3}
+  m_Name: GrassyTerrain
+  m_EditorClassIdentifier: 
+  terrainColors:
+  - range: 0.25
+    heightOffset: -0.1
+    minColor: {r: 0.16264686, g: 0.4445122, b: 0.8018868, a: 0.73333335}
+    maxColor: {r: 0.53092736, g: 0.740473, b: 0.9150943, a: 0.627451}
+  - range: 0.15
+    heightOffset: 0
+    minColor: {r: 0.8679245, g: 0.8266572, b: 0.61000353, a: 1}
+    maxColor: {r: 0.8207547, g: 0.713473, b: 0.375534, a: 1}
+  - range: 0.35
+    heightOffset: 0
+    minColor: {r: 0.6968216, g: 0.8113208, b: 0.34060165, a: 1}
+    maxColor: {r: 0.46663734, g: 0.6509434, b: 0.19958171, a: 1}
+  - range: 0.15
+    heightOffset: 0.5
+    minColor: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
+    maxColor: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 1}
+  - range: 0.1
+    heightOffset: 0.6
+    minColor: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
+    maxColor: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 1}

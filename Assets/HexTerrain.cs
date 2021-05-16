@@ -20,6 +20,8 @@ public class HexTerrain : MonoBehaviour
 
     public TerrainColorData terrainColorData;
 
+    public float edgeHeight;
+
     Mesh mesh;
 
     private float[,] noiseMap;

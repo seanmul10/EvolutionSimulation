@@ -5,9 +5,6 @@ using UnityEngine;
 
 public static class MeshGenerator
 {
-    public static float HEX_RADIUS = 0.5773502691896257645092f;
-    public static float HALF_HEX_RADIUS = 0.5773502691896257645092f / 2;
-
     public static Mesh GenerateMesh(int width, int length, HexArray hexArray)
     {
         int ridges = CalculateRidges();
@@ -16,38 +13,36 @@ public static class MeshGenerator
         Vector2[] uv = new Vector2[vertices.Length];
         Color[] colors = new Color[vertices.Length];
         int i = 0, vertexIndex = 0, triangleIndex = 0;
-        for (float y = 0; i < length; y += HEX_RADIUS + HALF_HEX_RADIUS, i++)
+        for (float y = 0; i < length; y += HexArray.HEX_RADIUS + HexArray.HALF_HEX_RADIUS, i++)
         {
             int j = 0;
             for (float x = i % 2 == 0 ? 0f : -0.5f; x < width; x++, vertexIndex += 6, triangleIndex += 12, j++)
             {
                 Hex hex = hexArray[j, i];
-                float height = hex.position.y;
-                Color color = hex.color;
 
                 // Create vertices
-                vertices[vertexIndex] = new Vector3(x - 0.5f, height, y - HALF_HEX_RADIUS);
-                vertices[vertexIndex + 1] = new Vector3(x - 0.5f, height, y + HALF_HEX_RADIUS);
-                vertices[vertexIndex + 2] = new Vector3(x, height, y + HEX_RADIUS);
-                vertices[vertexIndex + 3] = new Vector3(x + 0.5f, height, y + HALF_HEX_RADIUS);
-                vertices[vertexIndex + 4] = new Vector3(x + 0.5f, height, y - HALF_HEX_RADIUS);
-                vertices[vertexIndex + 5] = new Vector3(x, height, y - HEX_RADIUS);
+                vertices[vertexIndex] = new Vector3(x - 0.5f, hex.position.y, y - HexArray.HALF_HEX_RADIUS);
+                vertices[vertexIndex + 1] = new Vector3(x - 0.5f, hex.position.y, y + HexArray.HALF_HEX_RADIUS);
+                vertices[vertexIndex + 2] = new Vector3(x, hex.position.y, y + HexArray.HEX_RADIUS);
+                vertices[vertexIndex + 3] = new Vector3(x + 0.5f, hex.position.y, y + HexArray.HALF_HEX_RADIUS);
+                vertices[vertexIndex + 4] = new Vector3(x + 0.5f, hex.position.y, y - HexArray.HALF_HEX_RADIUS);
+                vertices[vertexIndex + 5] = new Vector3(x, hex.position.y, y - HexArray.HEX_RADIUS);
 
                 // Create uvs
-                uv[vertexIndex] = new Vector2(x - 0.5f, y - HALF_HEX_RADIUS);
-                uv[vertexIndex + 1] = new Vector2(x - 0.5f, y + HALF_HEX_RADIUS);
-                uv[vertexIndex + 2] = new Vector2(x, y + HEX_RADIUS);
-                uv[vertexIndex + 3] = new Vector2(x + 0.5f, y + HALF_HEX_RADIUS);
-                uv[vertexIndex + 4] = new Vector2(x + 0.5f, y - HALF_HEX_RADIUS);
-                uv[vertexIndex + 5] = new Vector2(x, y - HEX_RADIUS);
+                uv[vertexIndex] = new Vector2(x - 0.5f, y - HexArray.HALF_HEX_RADIUS);
+                uv[vertexIndex + 1] = new Vector2(x - 0.5f, y + HexArray.HALF_HEX_RADIUS);
+                uv[vertexIndex + 2] = new Vector2(x, y + HexArray.HEX_RADIUS);
+                uv[vertexIndex + 3] = new Vector2(x + 0.5f, y + HexArray.HALF_HEX_RADIUS);
+                uv[vertexIndex + 4] = new Vector2(x + 0.5f, y - HexArray.HALF_HEX_RADIUS);
+                uv[vertexIndex + 5] = new Vector2(x, y - HexArray.HEX_RADIUS);
 
                 // Create vertex colours
-                colors[vertexIndex] = color;
-                colors[vertexIndex + 1] = color;
-                colors[vertexIndex + 2] = color;
-                colors[vertexIndex + 3] = color;
-                colors[vertexIndex + 4] = color;
-                colors[vertexIndex + 5] = color;
+                colors[vertexIndex] = hex.color;
+                colors[vertexIndex + 1] = hex.color;
+                colors[vertexIndex + 2] = hex.color;
+                colors[vertexIndex + 3] = hex.color;
+                colors[vertexIndex + 4] = hex.color;
+                colors[vertexIndex + 5] = hex.color;
 
                 // Create triangles
                 triangles[triangleIndex] = vertexIndex;

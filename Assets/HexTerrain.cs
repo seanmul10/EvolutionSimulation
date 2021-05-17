@@ -41,7 +41,7 @@ public class HexTerrain : MonoBehaviour
 
     public static Vector3 HexPositionToWorldPosition(Vector3 hexPosition)
     {
-        return new Vector3(hexPosition.x + (hexPosition.z % 2 == 0 ? 0f : -0.5f), hexPosition.y, hexPosition.z * MeshGenerator.HALF_HEX_RADIUS * 3);
+        return new Vector3(hexPosition.x + (hexPosition.z % 2 == 0 ? 0f : -0.5f), hexPosition.y, hexPosition.z * HexArray.HALF_HEX_RADIUS * 3);
     }
 
     public static Quaternion HexDirectionToWorldRotation(int direction)

@@ -8,11 +8,11 @@ public static class MeshGenerator
     public static float HEX_RADIUS = 0.5773502691896257645092f;
     public static float HALF_HEX_RADIUS = 0.5773502691896257645092f / 2;
 
-    public static Mesh GenerateMesh(int width, int length, float[,] noiseMap, TerrainColorData terrainColorData)
+    public static Mesh GenerateMesh(int width, int length, HexArray hexArray)
     {
         int ridges = CalculateRidges();
         Vector3[] vertices = new Vector3[(width * length + length / 2) * 6 + ridges * 2];
-        int[] triangles = new int[vertices.Length * 2 + ridges * 2];
+        int[] triangles = new int[vertices.Length * 2];
         Vector2[] uv = new Vector2[vertices.Length];
         Color[] colors = new Color[vertices.Length];
         int i = 0, vertexIndex = 0, triangleIndex = 0;
@@ -21,9 +21,9 @@ public static class MeshGenerator
             int j = 0;
             for (float x = i % 2 == 0 ? 0f : -0.5f; x < width; x++, vertexIndex += 6, triangleIndex += 12, j++)
             {
-                TerrainLevel terrainLevel = GetTerrainColour(Noise.AccessNoiseMapWithFloats(noiseMap, x + 1, y + 1), terrainColorData);
-                float height = terrainLevel.height;
-                Color color = terrainLevel.color;
+                Hex hex = hexArray[j, i];
+                float height = hex.position.y;
+                Color color = hex.color;
 
                 // Create vertices
                 vertices[vertexIndex] = new Vector3(x - 0.5f, height, y - HALF_HEX_RADIUS);
@@ -80,19 +80,5 @@ public static class MeshGenerator
     static int CalculateRidges()
     {
         return 0;
-    }
-
-    static TerrainLevel GetTerrainColour(float terrainValue, TerrainColorData dataObject)
-    {
-        float currentRange = 0f;
-        for (int i = 0; i < dataObject.terrainColors.Length; i++)
-        {
-            TerrainColor color = dataObject.terrainColors[i];
-            if (terrainValue <= Mathf.Min(currentRange + color.range, 1f))
-                return new TerrainLevel(color.heightOffset, Color.Lerp(color.minColor, color.maxColor, (terrainValue - currentRange) * (1f / color.range)));
-            currentRange += color.range;
-        }
-        Debug.LogWarning("Error with terrain data. Value: " + terrainValue + " Current range: " + currentRange);
-        return new TerrainLevel(0f, Color.magenta);
     }
 }

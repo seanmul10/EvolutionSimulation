@@ -10,4 +10,9 @@ public struct TerrainColor
 
     public Color minColor;
     public Color maxColor;
+
+    public override string ToString()
+    {
+        return base.ToString() + " Range: " + range.ToString() + " HeightOffset: " + heightOffset.ToString() + " Min Color: " + minColor.ToString() + " Max Color: " + maxColor.ToString();
+    }
 }

@@ -23,7 +23,7 @@ public class HexTerrainEditor : Editor
         if (terrain.GetMesh() != null)
         {
             EditorGUILayout.LabelField("Verts", terrain.GetMesh().vertices.Length.ToString());
-            EditorGUILayout.LabelField("Triangles", terrain.GetMesh().triangles.Length.ToString());
+            EditorGUILayout.LabelField("Triangles", (terrain.GetMesh().triangles.Length / 3).ToString());
         }
     }
 }

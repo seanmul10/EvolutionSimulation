@@ -33,7 +33,7 @@ public class TerrainColorDataEditor : Editor
                     EditorGUILayout.FloatField(totalRange + colors[i].range, GUILayout.MaxWidth(EditorGUIUtility.currentViewWidth * 0.2f));
                 GUI.enabled = true;
             GUILayout.EndHorizontal();
-            GUILayout.Space(10);
+            EditorGUILayout.Space();
             totalRange += colors[i].range;
         }
         if (totalRange != 1f)

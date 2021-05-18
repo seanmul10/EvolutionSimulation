@@ -38,9 +38,9 @@ public class HexTerrain : MonoBehaviour
     {
         float time = Time.realtimeSinceStartup;
         float[,] noiseMap = Noise.Generate2DNoiseMap(seed, width * 2, length * 2, scale, octaves, persistance, lacunarity, offset);
-        Debug.Log("Noise generated");
+        Debug.Log("Noise generated in " + (Time.realtimeSinceStartup - time).ToString() + " seconds");
         hexArray = HexArray.NoiseToHexTerrain(noiseMap, width, length, terrainColorData ?? TerrainColorData.EmptyDataObject);
-        Debug.Log("Hex array generated");
+        Debug.Log("Hex array generated in " + (Time.realtimeSinceStartup - time).ToString() + " seconds"); ;
         mesh = MeshGenerator.GenerateMesh(width, length, hexArray, edgeHeight);
         GetComponent<MeshFilter>().mesh = mesh;
         Debug.Log("Finished creating terrain in " + (Time.realtimeSinceStartup - time).ToString() + " seconds");
@@ -59,20 +59,5 @@ public class HexTerrain : MonoBehaviour
     public Mesh GetMesh()
     {
         return mesh;
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (hexArray != null)
-        {
-            Hex hex = hexArray[selectionX, selectionY];
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(hex.position + transform.position, 0.25f);
-            Gizmos.color = Color.yellow;
-            for (int i = 0; i < 6; i++)
-            {
-                Gizmos.DrawSphere(hexArray.GetNeighbour(selectionX, selectionY, (HexDirection)i).position + transform.position, 0.1f);
-            }
-        }
     }
 }

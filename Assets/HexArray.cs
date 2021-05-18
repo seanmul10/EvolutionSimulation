@@ -50,6 +50,7 @@ public class HexArray
         return Hex.Void;
     }
 
+    [System.Obsolete]
     public Hex GetNeighbour(int xIndex, int yIndex, HexDirection direction)
     {
         int currentHex = GetHexIndex(this[xIndex, yIndex]);
@@ -88,6 +89,7 @@ public class HexArray
         return hexArray;
     }
 
+    [System.Obsolete]
     public int GetHexIndex(Hex hex)
     {
         return System.Array.IndexOf(hexArray, hex);

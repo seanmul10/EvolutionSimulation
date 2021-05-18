@@ -67,16 +67,15 @@ public static class MeshGenerator
                 int ridgeTriangles = 0;
                 for (int direction = 0; direction < 6; direction++)
                 {
-                    Hex neighbour = hexArray.GetNeighbour(j, i, (HexDirection)direction);
-                    if (neighbour.position.y < hex.position.y)
+                    if (hex.ridgeFlags[direction])
                     {
                         Vector3 a = vertices[vertexIndex + direction];
                         Vector3 b = vertices[vertexIndex + (direction + 1) % 6];
 
                         vertices[vertexIndex + 6 + ridgeVertices] = a;
                         vertices[vertexIndex + 7 + ridgeVertices] = b;
-                        vertices[vertexIndex + 8 + ridgeVertices] = new Vector3(a.x, neighbour.position.y, a.z);
-                        vertices[vertexIndex + 9 + ridgeVertices] = new Vector3(b.x, neighbour.position.y, b.z);
+                        vertices[vertexIndex + 8 + ridgeVertices] = new Vector3(a.x, hex.neighbourHeights[direction], a.z);
+                        vertices[vertexIndex + 9 + ridgeVertices] = new Vector3(b.x, hex.neighbourHeights[direction], b.z);
 
                         uv[vertexIndex + 6 + ridgeVertices] = new Vector2(a.x - 0.5f, a.z);
                         uv[vertexIndex + 7 + ridgeVertices] = new Vector2(b.x - 0.5f, b.z);
@@ -102,7 +101,6 @@ public static class MeshGenerator
                 }
                 vertexIndex += ridgeVertices;
                 triangleIndex += ridgeTriangles;
-                Debug.Log("Hex at (" + i + ", " + j + ") mesh created");
             }
         }
         Mesh mesh = new Mesh
@@ -126,8 +124,12 @@ public static class MeshGenerator
             for (int direction = 0; direction < 6; direction++)
             {
                 Hex neighbour = hexArray.GetNeighbour(index, (HexDirection)direction);
+                hexArray[index].neighbourHeights[direction] = neighbour.position.y;
                 if (neighbour.position.y < hexArray[i].position.y)
+                {
+                    hexArray[index].ridgeFlags[direction] = true;
                     ridges++;
+                }
             }
         }
         return ridges;

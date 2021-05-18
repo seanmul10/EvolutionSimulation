@@ -8,7 +8,6 @@ public static class MeshGenerator
     public static Mesh GenerateMesh(int width, int length, HexArray hexArray, float edgeHeight)
     {
         int ridges = CalculateRidges(hexArray);
-        Debug.Log("Ridges calculated");
         Vector3[] vertices = new Vector3[(width * length + length / 2) * 6 + ridges * 4];
         int[] triangles = new int[(width * length + length / 2) * 12 + (ridges * 6)];
         Vector2[] uv = new Vector2[vertices.Length];
@@ -120,14 +119,13 @@ public static class MeshGenerator
         int ridges = 0;
         for (int i = 0; i < hexArray.Count; i++)
         {
-            int index = hexArray.GetHexIndex(hexArray[i]);
             for (int direction = 0; direction < 6; direction++)
             {
-                Hex neighbour = hexArray.GetNeighbour(index, (HexDirection)direction);
-                hexArray[index].neighbourHeights[direction] = neighbour.position.y;
+                Hex neighbour = hexArray.GetNeighbour(i, (HexDirection)direction);
+                hexArray[i].neighbourHeights[direction] = neighbour.position.y;
                 if (neighbour.position.y < hexArray[i].position.y)
                 {
-                    hexArray[index].ridgeFlags[direction] = true;
+                    hexArray[i].ridgeFlags[direction] = true;
                     ridges++;
                 }
             }

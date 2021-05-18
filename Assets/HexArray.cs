@@ -95,7 +95,7 @@ public class HexArray
         return System.Array.IndexOf(hexArray, hex);
     }
 
-    public int HexDisplacement(HexDirection direction)
+    int HexDisplacement(HexDirection direction)
     {
         switch (direction)
         {

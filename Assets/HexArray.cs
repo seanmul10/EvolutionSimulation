@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HexArray : IEnumerable<Hex>
+public class HexArray
 {
     Hex[] hexArray;
     int width;
@@ -32,13 +32,18 @@ public class HexArray : IEnumerable<Hex>
 
     public int Count => width * height + height / 2;
 
-    public Hex GetNeighbour(int xIndex, int yIndex, HexDirection direction)
+    public Hex GetNeighbour(int index, HexDirection direction)
     {
-        int currentHex = xIndex + yIndex * width + (yIndex / 2);
-        int i = currentHex + (int)direction;
+        int i = index + HexDisplacement(direction);
         if (i >= 0 && i < Count)
             return hexArray[i];
         return Hex.Void;
+    }
+
+    public Hex GetNeighbour(int xIndex, int yIndex, HexDirection direction)
+    {
+        int currentHex = xIndex + yIndex * width + (yIndex / 2);
+        return GetNeighbour(currentHex, direction);
     }
 
     public static HexArray NoiseToHexTerrain(float[,] noiseMap, int width, int height, TerrainColorData terrainColorData)
@@ -73,13 +78,36 @@ public class HexArray : IEnumerable<Hex>
         return hexArray;
     }
 
-    public IEnumerator<Hex> GetEnumerator()
+    public int GetHexIndex(Hex hex)
     {
-        return (IEnumerator<Hex>)hexArray.GetEnumerator();
+        for (int i = 0; i < hexArray.Length; i++)
+        {
+            if (hex.Equals(hexArray[i]))
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
+    public int HexDisplacement(HexDirection direction)
     {
-        return GetEnumerator();
+        switch (direction)
+        {
+            case HexDirection.EAST:
+                return -1;
+            case HexDirection.NORTHEAST:
+                return 3;
+            case HexDirection.NORTHWEST:
+                return 4;
+            case HexDirection.WEST:
+                return 1;
+            case HexDirection.SOUTHWEST:
+                return -3;
+            case HexDirection.SOUTHEAST:
+                return -4;
+            default:
+                return 0;
+        }
     }
 }

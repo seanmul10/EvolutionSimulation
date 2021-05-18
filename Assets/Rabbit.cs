@@ -10,6 +10,19 @@ public class Rabbit : MonoBehaviour
 
     public int direction = 0; // 0 = west, 1 = northwest, 2 = northeast, 3 = east, 4 = southeast, 5 = southwest
 
+    private void Start()
+    {
+        for (int i = 0; i < 90; RandomIterator(out i))
+        {
+            Debug.Log(i);
+        }
+    }
+
+    void RandomIterator(out int i)
+    {
+        i = Random.Range(0, 100);
+    }
+
     public void UpdateTransform()
     {
         transform.position = HexTerrain.HexPositionToWorldPosition(new Vector3(xPosition, transform.position.y, yPosition));

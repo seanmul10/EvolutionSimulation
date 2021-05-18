@@ -35,7 +35,7 @@ public class HexTerrain : MonoBehaviour
     {
         float[,] noiseMap = Noise.Generate2DNoiseMap(seed, width * 2, length * 2, scale, octaves, persistance, lacunarity, offset);
         hexArray = HexArray.NoiseToHexTerrain(noiseMap, width, length, terrainColorData ?? TerrainColorData.EmptyDataObject);
-        mesh = MeshGenerator.GenerateMesh(width, length, hexArray);
+        mesh = MeshGenerator.GenerateMesh(width, length, hexArray, edgeHeight);
         GetComponent<MeshFilter>().mesh = mesh;
     }
 

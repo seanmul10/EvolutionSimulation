@@ -122,9 +122,10 @@ public static class MeshGenerator
         int ridges = 0;
         for (int i = 0; i < hexArray.Count; i++)
         {
+            int index = hexArray.GetHexIndex(hexArray[i]);
             for (int direction = 0; direction < 6; direction++)
             {
-                Hex neighbour = hexArray.GetNeighbour(hexArray.GetHexIndex(hexArray[i]), (HexDirection)direction);
+                Hex neighbour = hexArray.GetNeighbour(index, (HexDirection)direction);
                 if (neighbour.position.y < hexArray[i].position.y)
                     ridges++;
             }

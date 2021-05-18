@@ -19,6 +19,10 @@ public class TerrainColorDataEditor : Editor
         float totalRange = 0f;
         for (int i = 0; i < colors.Length; i++)
         {
+            GUILayout.BeginHorizontal();
+            //colors[i].name = EditorGUILayout.TextField(new GUIContent("Name"), colors[i].name);
+            colors[i].flags = (TerrainFlags)EditorGUILayout.EnumFlagsField(new GUIContent("Flags"), colors[i].flags);
+            GUILayout.EndHorizontal();
             colors[i].range = EditorGUILayout.FloatField(new GUIContent("Range"), colors[i].range);
             colors[i].heightOffset = EditorGUILayout.FloatField(new GUIContent("Height Offset"), colors[i].heightOffset);
             GUILayout.BeginHorizontal();

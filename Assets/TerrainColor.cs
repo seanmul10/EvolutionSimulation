@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public struct TerrainColor
 {
+    public string name;
+    public TerrainFlags flags;
     public float range;
     public float heightOffset;
 
@@ -13,6 +15,6 @@ public struct TerrainColor
 
     public override string ToString()
     {
-        return base.ToString() + " Range: " + range.ToString() + " HeightOffset: " + heightOffset.ToString() + " Min Color: " + minColor.ToString() + " Max Color: " + maxColor.ToString();
+        return base.ToString() + "Name: " + name + " Range: " + range.ToString() + " HeightOffset: " + heightOffset.ToString() + " Min Color: " + minColor.ToString() + " Max Color: " + maxColor.ToString();
     }
 }

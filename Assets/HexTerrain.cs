@@ -22,6 +22,9 @@ public class HexTerrain : MonoBehaviour
 
     public float edgeHeight;
 
+    public int selectionX = 0;
+    public int selectionY = 0;
+
     Mesh mesh;
 
     public HexArray hexArray;
@@ -52,5 +55,20 @@ public class HexTerrain : MonoBehaviour
     public Mesh GetMesh()
     {
         return mesh;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (hexArray != null)
+        {
+            Hex hex = hexArray[selectionX, selectionY];
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(hex.position + transform.position, 0.25f);
+            Gizmos.color = Color.yellow;
+            for (int i = 0; i < 6; i++)
+            {
+                Gizmos.DrawSphere(hexArray.GetNeighbour(selectionX, selectionY, (HexDirection)i).position + transform.position, 0.1f * (i + 1));
+            }
+        }
     }
 }

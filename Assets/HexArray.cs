@@ -26,8 +26,18 @@ public class HexArray
 
     public Hex this[int i, int j]
     {
-        get { return hexArray[i + j * width + (j / 2)]; }
-        set { hexArray[i + j * width + (j / 2)] = value; }
+        get
+        {
+            if (i >= 0 && j >= 0 && i < width + (j % 2 == 0 ? 0 : 1) && j < height)
+                return hexArray[i + j * width + (j / 2)];
+            else
+                return Hex.Void;
+        }
+        set
+        {
+            if (i >= 0 && j >= 0 && i < width + (j % 2 == 0 ? 0 : 1) && j < height)
+                hexArray[i + j * width + (j / 2)] = value;
+        }
     }
 
     public int Count => width * height + height / 2;
@@ -42,7 +52,7 @@ public class HexArray
 
     public Hex GetNeighbour(int xIndex, int yIndex, HexDirection direction)
     {
-        int currentHex = xIndex + yIndex * width + (yIndex / 2);
+        int currentHex = System.Array.IndexOf(hexArray, this[xIndex, yIndex]);
         return GetNeighbour(currentHex, direction);
     }
 
@@ -97,15 +107,15 @@ public class HexArray
             case HexDirection.EAST:
                 return -1;
             case HexDirection.NORTHEAST:
-                return 3;
+                return width;
             case HexDirection.NORTHWEST:
-                return 4;
+                return width + 1;
             case HexDirection.WEST:
                 return 1;
             case HexDirection.SOUTHWEST:
-                return -3;
+                return -width;
             case HexDirection.SOUTHEAST:
-                return -4;
+                return -width - 1;
             default:
                 return 0;
         }

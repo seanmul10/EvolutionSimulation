@@ -52,7 +52,7 @@ public class HexArray
 
     public Hex GetNeighbour(int xIndex, int yIndex, HexDirection direction)
     {
-        int currentHex = System.Array.IndexOf(hexArray, this[xIndex, yIndex]);
+        int currentHex = GetHexIndex(this[xIndex, yIndex]);
         return GetNeighbour(currentHex, direction);
     }
 
@@ -90,14 +90,7 @@ public class HexArray
 
     public int GetHexIndex(Hex hex)
     {
-        for (int i = 0; i < hexArray.Length; i++)
-        {
-            if (hex.Equals(hexArray[i]))
-            {
-                return i;
-            }
-        }
-        return -1;
+        return System.Array.IndexOf(hexArray, hex);
     }
 
     public int HexDisplacement(HexDirection direction)

@@ -37,9 +37,12 @@ public class HexTerrain : MonoBehaviour
     public void CreateMesh()
     {
         float[,] noiseMap = Noise.Generate2DNoiseMap(seed, width * 2, length * 2, scale, octaves, persistance, lacunarity, offset);
+        Debug.Log("Noise generated");
         hexArray = HexArray.NoiseToHexTerrain(noiseMap, width, length, terrainColorData ?? TerrainColorData.EmptyDataObject);
+        Debug.Log("Hex array generated");
         mesh = MeshGenerator.GenerateMesh(width, length, hexArray, edgeHeight);
         GetComponent<MeshFilter>().mesh = mesh;
+        Debug.Log("Finished creating terrain");
     }
 
     public static Vector3 HexPositionToWorldPosition(Vector3 hexPosition)
@@ -67,7 +70,7 @@ public class HexTerrain : MonoBehaviour
             Gizmos.color = Color.yellow;
             for (int i = 0; i < 6; i++)
             {
-                Gizmos.DrawSphere(hexArray.GetNeighbour(selectionX, selectionY, (HexDirection)i).position + transform.position, 0.1f * (i + 1));
+                Gizmos.DrawSphere(hexArray.GetNeighbour(selectionX, selectionY, (HexDirection)i).position + transform.position, 0.1f);
             }
         }
     }

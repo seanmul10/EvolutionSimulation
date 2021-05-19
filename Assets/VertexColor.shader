@@ -1,6 +1,6 @@
 ﻿Shader "Custom/VertexColor" {
 	SubShader{
-		Tags { "Queue" = "AlphaTest" "RenderType" = "TransparentCutout" }
+		Tags { "RenderType" = "Opaque" }
 		LOD 200
 
 		CGPROGRAM

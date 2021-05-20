@@ -45,16 +45,17 @@ public class HexArray
     public Hex GetNeighbour(int index, HexDirection direction)
     {
         int i = index + HexDisplacement(direction);
-        if (i >= 0 && i < Count)
+        if (DoesNeighbourExist(index, i))
             return hexArray[i];
         return Hex.Void;
     }
 
-    [System.Obsolete]
-    public Hex GetNeighbour(int xIndex, int yIndex, HexDirection direction)
+    public int GetNeighbourIndex(int index, HexDirection direction)
     {
-        int currentHex = GetHexIndex(this[xIndex, yIndex]);
-        return GetNeighbour(currentHex, direction);
+        int i = index + HexDisplacement(direction);
+        if (DoesNeighbourExist(index, i))
+            return i;
+        return -1;
     }
 
     public static HexArray NoiseToHexTerrain(float[,] noiseMap, int width, int height, TerrainColorData terrainColorData)
@@ -73,7 +74,11 @@ public class HexArray
                 {
                     if (terrainValue <= Mathf.Min(currentRange + color.range, 1f))
                     {
-                        hexArray[j, i] = new Hex(new Vector3(x, color.heightOffset, y), Color.Lerp(color.minColor, color.maxColor, (terrainValue - currentRange) * (1f / color.range)));
+                        hexArray[j, i] = new Hex(
+                            new Vector3(x, color.heightOffset, y),
+                            Color.Lerp(color.minColor, color.maxColor, (terrainValue - currentRange) * (1f / color.range)),
+                            color.flags
+                            );
                         isSet = true;
                         break;
                     }
@@ -82,20 +87,19 @@ public class HexArray
                 if (!isSet)
                 {
                     Debug.LogWarning("Error with terrain data. Value: " + terrainValue + " Current range: " + currentRange);
-                    hexArray[j, i] = new Hex(new Vector3(x, 0f, y), Color.magenta);
+                    hexArray[j, i] = new Hex(new Vector3(x, 0f, y), Color.magenta, TerrainFlags.NOTHING);
                 }
             }
         }
         return hexArray;
     }
 
-    [System.Obsolete]
-    public int GetHexIndex(Hex hex)
+    bool DoesNeighbourExist(int currentIndex, int neighbourIndex)
     {
-        return System.Array.IndexOf(hexArray, hex);
+        return (neighbourIndex >= 0 && neighbourIndex < hexArray.Length);
     }
 
-    int HexDisplacement(HexDirection direction)
+    public int HexDisplacement(HexDirection direction)
     {
         switch (direction)
         {

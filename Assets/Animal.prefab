@@ -466,7 +466,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4891893877783546919}
-  - component: {fileID: 1660389982}
+  - component: {fileID: 4891893877289895496}
   m_Layer: 0
   m_Name: Animal
   m_TagString: Untagged
@@ -489,7 +489,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1660389982
+--- !u!114 &4891893877289895496
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -498,12 +498,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4891893877783546907}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ab9fdfdde018a64682653a2dac12e00, type: 3}
+  m_Script: {fileID: 11500000, guid: 6948b688c0a34434996ddeb927e06362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xPosition: 0
-  yPosition: 0
-  direction: 4
 --- !u!1 &5942125961383017364
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,2 +1,2 @@
 # EvolutionSimulation
- Small test project.
+ Small test project using Unity.
